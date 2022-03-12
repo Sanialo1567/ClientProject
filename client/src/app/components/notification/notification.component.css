@@ -1,0 +1,8 @@
+.notification-box:hover {
+    background-color: antiquewhite;
+    cursor: pointer;
+}
+
+.unwatched {
+    background-color: rgb(148, 248, 123);
+}

@@ -1,0 +1,17 @@
+<div class="text-center d-flex justify-content-center">
+  <div *ngIf="loginForm" class="bg-light p-3 " style="max-width: 500px;">
+    <h2>Login to start</h2>
+    <div>
+      <form [formGroup]='loginForm' (ngSubmit)="loginForm.valid && login()" autocomplete="off" >
+        <app-text-input formControlName='mail' [label]='"Email"'></app-text-input> 
+        <app-text-input formControlName='password' [label]='"Password"' [type]='"password"'></app-text-input>
+
+        <button  [disabled]='!loginForm.valid'  style="width: 120px;"
+        class="btn btn-primary m-2" 
+        type="submit">Sign in</button>
+        <button routerLink='/register'
+          type= "button"  class="btn btn-outline-secondary m-2" style="width: 120px;">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

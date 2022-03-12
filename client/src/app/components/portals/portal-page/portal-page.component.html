@@ -1,0 +1,79 @@
+<div *ngIf="portal">
+    <div class="row" style="box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.336); margin-bottom: 4px;">
+        <div class="col-2">
+            <button     
+            type="button" 
+            class="btn btn-block btn-outline-dark m-2"
+            routerLink="/"
+            >
+                Go back
+            </button>
+        </div>
+        <div class="col-5 text-center">
+            <h1>{{portal.name}}</h1>
+        </div>
+        <div class="col-1 text-right">
+            <span class=" m-2 badge rounded-pill bg-light border border-primary"
+                style="cursor: pointer;" (click)="showHideUsers()"
+            >   
+                {{ getUserCount() }}
+                <img src="/assets/users.png" height="30px" alt="">
+            </span>
+        </div>
+        <div class="col-2" *appRole='[1,2]'>
+            <button    *ngIf="isNotSubscribed()" 
+            type="button" 
+            class="btn btn-primary btn-lg btn-block m-2"
+            (click)="subscribeToPortal()"
+            >
+                Subscribe
+            </button>
+        </div>
+        <div class="col-2" *appRole='[1]' >
+            <button   *ngIf="accountService.currentUser?.id === portal.ownerId"
+                    type="button" 
+                    class="btn btn-primary btn-lg btn-block m-2"
+                    (click)="isAddPostOpen = !isAddPostOpen"
+            >
+                Add post
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div [ngClass]="isUsersOpen || isAddPostOpen ? 'col-7 offset-1' : 'col-8 offset-2'"
+            style="overflow: auto; height: 80vh;">
+            <div class="card m-5" *ngFor="let item of portal.posts">
+                <h3 class="card-header"> {{ item.name }}</h3>
+        
+                <div class="card-body">
+                <p class="card-text">{{ item.text }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ item.createDate | date : 'medium' }}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isUsersOpen" class="col-4">
+            <table class="table table-hover m-3">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Surname</th>
+                    <th scope="col">Mail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-default" *ngFor="let item of portal.users">
+                    <th scope="row">{{ item.name }}</th>
+                    <td>{{ item.surname }}</td>
+                    <td>{{ item.mail }}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div *ngIf="isAddPostOpen" class="col-4">
+            <app-add-post [portal]="portal"></app-add-post>
+        </div>
+    </div>
+    
+</div>

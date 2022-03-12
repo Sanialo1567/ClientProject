@@ -1,0 +1,56 @@
+
+<div class="row">
+    <div class="col-2 m-2">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item bg-light">
+                <span class="nav-link">
+                    Select category
+                </span>
+            </li>
+            <li class="nav-item" *ngFor="let item of cathegories" 
+                tooltip="{{ item.description }}"
+                placement="right">
+                <a 
+                    class="nav-link" [ngClass]="item.id === selectedCathegory?.id ? 'active' : ''" 
+                    (click)="cathegoryClick(item)" > 
+                    <button *appRole="[0]" class="btn btn-outline-primary" type="button" (click)="editCategory(item)">
+                        Edit
+                    </button>
+                    {{ item.name }}
+                </a>
+            </li>
+        </ul>
+        <div  *appRole="[0]">
+            <div *ngIf="!editCategoryMode">
+                <button class="btn btn-outline-success m-2" type="button" (click)="addCategoryMode = !addCategoryMode">
+                    {{ addCategoryMode ? 'Close category form' : 'Add category'}}
+                </button>
+            </div>
+            <div *ngIf="addCategoryMode">
+                <app-add-category [categoryList]="cathegories"></app-add-category>
+            </div>
+            <div *ngIf="editCategoryMode && selectedCathegory">
+                <button class="btn btn-outline-success m-2" type="button" (click)="editCategoryMode = false">
+                    Hide edit
+                </button>
+                <app-edit-category [categoryList]="cathegories" [category]='selectedCathegory'></app-edit-category>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selectedCathegory" class="col-8 pt-5">
+        <div *appRole="[1, 2]">
+            <button class="btn btn-outline-success m-2" type="button" (click)="addPortalMode = !addPortalMode">
+                {{ addPortalMode ? 'Hide portal form' : 'Add portal'}}
+            </button>
+        </div>
+        <div *ngIf="addPortalMode && selectedCathegory">
+            <app-add-portal [category]="selectedCathegory"></app-add-portal>
+        </div>
+        <app-portal-list class="mt-2" [cathegoryId]="selectedCathegory.id"></app-portal-list>
+    </div>
+    <div *ngIf="!selectedCathegory" class="col-8">
+        <div class="text-center mt-5">
+            <h3>Select category to view portals</h3>
+        </div>  
+    </div>
+</div>

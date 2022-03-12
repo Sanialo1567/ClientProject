@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">SubscriptionCenter</a>
+           
+        <ul class="navbar-nav me-auto" *ngIf="accountService.currentUser">
+            <li class="nav-item" *appRole="[0,1,2]">
+                <a class="nav-link" routerLink="/">Home</a>
+            </li>
+            <li class="nav-item" *appRole="[1,2]">
+                <a class="nav-link" routerLink="/notification">Notifications</a>
+            </li>
+        </ul>
+        <div class="d-flex" *ngIf="accountService.currentUser">
+            <form class="d-flex">
+                <input [(ngModel)]="queryString" name="queryString" class="form-control me-sm-2" type="text" placeholder="Search" >
+                <button class="btn btn-success my-2 my-sm-0" type="submit" (click)="search()">Search</button>
+            </form>
+            
+            <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                        aria-controls="dropdown-basic">
+                        {{ accountService.currentUser.name}} <span class="caret"></span>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                    role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)='logout()'>logout</a>
+                    </li>
+
+                </ul>
+              </div>
+        </div>
+        <div class="d-flex" *ngIf="!accountService.currentUser">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/login">login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </nav>

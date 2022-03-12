@@ -1,0 +1,12 @@
+<div *ngIf="categoryForm">
+    <form [formGroup]='categoryForm' (ngSubmit)="categoryForm.valid && update()" autocomplete="off" >
+      <app-text-input formControlName='name' [label]='"Name"'></app-text-input> 
+      <app-text-input formControlName='description' [label]='"Description"'></app-text-input>
+
+      <button  [disabled]='!categoryForm.valid'
+        class="btn btn-primary btn-sm m-2" 
+        type="submit">
+        Edit category
+    </button>
+    </form>
+</div>

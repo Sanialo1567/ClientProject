@@ -1,0 +1,27 @@
+<div class="text-center d-flex justify-content-left">
+    <div *ngIf="portalForm" class="bg-light p-3 " style="max-width: 500px;">
+      <h2>Add new portal</h2>
+      <div>
+        <form [formGroup]='portalForm' (ngSubmit)="portalForm.valid && addPortal()" autocomplete="off" >
+          <app-text-input formControlName='name' [label]='"Name"'></app-text-input> 
+          <div class="form-group m-2">
+            <textarea
+            style="height: 200px;"
+            formControlName='description' 
+            name="text"
+            class="form-control " 
+            type="text" 
+            placeholder="Description"
+            ></textarea>
+          </div> 
+          
+          <button  [disabled]='!portalForm.valid'
+                    class="btn btn-primary btn-lg mr-2 mt-2" 
+                    type="submit">
+                    Add portal
+          </button>
+          
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,12 @@
+<div *ngIf="notifications.length === 0" class="m-5">
+    <h2>No notifications yet. To get notifications subscribe to any portal.</h2>
+</div>
+<div *ngIf="notifications.length > 0"> 
+    <h1 class="m-3">Notification list</h1>
+    <div
+        class="notification-box p-3" 
+        [ngClass]="item.status === 1 ? 'unwatched' : '' "
+        *ngFor="let item of notifications" [routerLink]="['/portal', item.webPortalId]">
+        New post on portal! {{item.webPortalId}}
+    </div>
+</div>

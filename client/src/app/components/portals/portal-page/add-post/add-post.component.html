@@ -1,0 +1,27 @@
+<div class="text-center d-flex justify-content-left">
+    <div *ngIf="postForm" class="bg-light p-3 " style="max-width: 500px;">
+      <h2>Add new post</h2>
+      <div>
+        <form [formGroup]='postForm' (ngSubmit)="postForm.valid && addPost()" autocomplete="off" >
+          <app-text-input formControlName='name' [label]='"Name"'></app-text-input>
+          <div class="form-group m-2">
+            <textarea
+            style="height: 200px;"
+            formControlName='text' 
+            name="text"
+            class="form-control " 
+            type="text" 
+            placeholder="Text"
+            ></textarea>
+          </div> 
+    
+          <button  [disabled]='!postForm.valid'
+                    class="btn btn-primary btn-lg mr-2 mt-2" 
+                    type="submit">
+                    Add post
+          </button>
+          
+        </form>
+      </div>
+    </div>
+  </div>
